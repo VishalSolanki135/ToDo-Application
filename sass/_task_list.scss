@@ -1,0 +1,80 @@
+@keyframes task-exit {
+    from {
+        transform: perspective(400px);
+    }
+
+    30% {
+        transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+        opacity: 1;
+    }
+
+    to {
+        transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+        opacity: 0;
+    }
+}
+
+.exit {
+    animation-name: task-exit;
+    animation-duration: .35s;
+    animation-fill-mode: forwards;
+}
+
+
+#task-list {
+    max-height: 30vh;
+    margin-left: 6rem;
+    margin-top: 3rem;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    user-select: none;
+    font-size: 16px;
+
+    li {
+        list-style: none;
+        font-size: 3.5em;
+        margin: .34em 0;
+        margin-right: 2em;
+        color: rgba(var(--text-color), 1);
+    }
+
+    @media (max-width: 1000px ) { font-size: 15px; }
+    @media (max-width: 1000px ) { height: 54vh ;}
+    @media (max-width: 900px ) { font-size: 14px; }
+    @media (max-width: 800px ) { font-size: 13px; }
+    @media (max-width: 700px ) {
+        font-size: 12px;
+        flex-wrap: nowrap;
+        height: auto;
+        align-items: center;
+        margin: 6rem 0 12rem;
+
+        li {
+            margin: 2rem 0;
+            font-size: 5rem;
+        }
+
+        li:last-of-type { margin-bottom: 10rem; }
+    }
+
+    $list-sizes: (//sizing by element CSS TRICK...
+        '3': 2.8em,
+        '5': 2.5em,
+        '9': 2.1em,
+        '12': 1.9em,
+        '20': 1.6em,
+        '25': 1.3em,
+        '30': 1em,
+    );
+
+    @each $min, $size in $list-sizes {
+        li:first-child:nth-last-child(n+#{$min}),
+        li:first-child:nth-last-child(n+#{$min}) ~ li {
+            font-size: $size;
+        }
+    }
+
+}
